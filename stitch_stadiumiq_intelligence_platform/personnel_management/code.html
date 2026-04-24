@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StadiumIQ - Personnel Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#374c36",
+                        "surface-bright": "#fbf9f5",
+                        "inverse-surface": "#30312e",
+                        "inverse-primary": "#b5cdb0",
+                        "on-tertiary-container": "#7591c5",
+                        "surface-container-low": "#f5f3f0",
+                        "secondary-fixed": "#ffdbc8",
+                        "primary-fixed": "#d0e9cb",
+                        "on-tertiary-fixed-variant": "#294776",
+                        "on-surface": "#1b1c1a",
+                        "tertiary-fixed-dim": "#aac7fe",
+                        "surface-dim": "#dbdad6",
+                        "on-primary-container": "#7f977c",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#6b3100",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3e2df",
+                        "on-surface-variant": "#434841",
+                        "primary-fixed-dim": "#b5cdb0",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "outline": "#747871",
+                        "on-tertiary-fixed": "#001b3e",
+                        "secondary-container": "#fe9246",
+                        "on-primary-fixed": "#0c200d",
+                        "on-secondary-fixed": "#311300",
+                        "tertiary-fixed": "#d6e3ff",
+                        "surface-tint": "#4e644c",
+                        "secondary": "#984800",
+                        "tertiary": "#001532",
+                        "surface-variant": "#e3e2df",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#733500",
+                        "primary-container": "#1a2e1a",
+                        "primary": "#061907",
+                        "surface-container": "#efeeea",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e9e8e4",
+                        "secondary-fixed-dim": "#ffb689",
+                        "background": "#fbf9f5",
+                        "inverse-on-surface": "#f2f1ed",
+                        "outline-variant": "#c3c8bf",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fbf9f5",
+                        "tertiary-container": "#022956"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "asymmetric-split": "66%",
+                        "container-max": "1440px",
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "margin": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Noto Serif", "serif"],
+                        "body-md": ["Manrope", "sans-serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "label-caps": ["Manrope", "sans-serif"],
+                        "display-xl": ["Noto Serif", "serif"],
+                        "ui-button": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Noto Serif", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "ui-button": ["14px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md antialiased min-h-screen">
+<!-- Shared Component: SideNavBar -->
+<nav class="bg-[#F5F0E8] dark:bg-stone-950 h-screen fixed left-0 top-0 w-64 border-r border-[#1A2E1A]/15 dark:border-white/10 flex flex-col h-full py-12 z-50">
+<div class="px-8 mb-12">
+<h1 class="text-2xl font-serif tracking-widest uppercase text-[#1A2E1A] dark:text-stone-100">StadiumIQ</h1>
+<p class="font-serif tracking-tight uppercase text-xs font-semibold mt-2 text-[#1A2E1A]/60">Venue Operations</p>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<!-- Active Tab -->
+<a class="flex items-center gap-4 text-[#1A2E1A] dark:text-white border-l-4 border-[#BF5700] pl-6 py-4 bg-white/40 dark:bg-white/5 font-serif tracking-tight uppercase text-xs font-semibold transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                Personnel
+            </a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-4 text-[#1A2E1A]/60 dark:text-stone-400 pl-8 py-4 hover:bg-white/60 dark:hover:bg-white/10 hover:text-[#BF5700] transition-all duration-300 font-serif tracking-tight uppercase text-xs font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+                Intelligence
+            </a>
+<a class="flex items-center gap-4 text-[#1A2E1A]/60 dark:text-stone-400 pl-8 py-4 hover:bg-white/60 dark:hover:bg-white/10 hover:text-[#BF5700] transition-all duration-300 font-serif tracking-tight uppercase text-xs font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+                Heatmaps
+            </a>
+<a class="flex items-center gap-4 text-[#1A2E1A]/60 dark:text-stone-400 pl-8 py-4 hover:bg-white/60 dark:hover:bg-white/10 hover:text-[#BF5700] transition-all duration-300 font-serif tracking-tight uppercase text-xs font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                Archive
+            </a>
+</div>
+<div class="px-8 mt-auto flex flex-col gap-4">
+<button class="w-full py-3 bg-[#BF5700] text-white font-serif tracking-tight uppercase text-xs font-semibold rounded-[4px] hover:bg-opacity-90 transition-colors">
+                Operational Support
+            </button>
+<div class="flex flex-col gap-2 mt-4 pt-4 border-t border-[#1A2E1A]/15">
+<a class="flex items-center gap-4 text-[#1A2E1A]/60 dark:text-stone-400 hover:text-[#BF5700] transition-all duration-300 font-serif tracking-tight uppercase text-xs font-semibold py-2" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-4 text-[#1A2E1A]/60 dark:text-stone-400 hover:text-[#BF5700] transition-all duration-300 font-serif tracking-tight uppercase text-xs font-semibold py-2" href="#">
+<span class="material-symbols-outlined text-[18px]">help_center</span>
+                    Support
+                </a>
+</div>
+</div>
+</nav>
+<!-- Shared Component: TopAppBar -->
+<header class="bg-transparent fixed top-0 right-0 w-[calc(100%-16rem)] border-b border-[#1A2E1A]/10 dark:border-white/10 flex justify-between items-center px-16 py-8 h-24 ml-64 z-40 backdrop-blur-sm bg-[#F5F0E8]/80">
+<div class="flex items-center gap-8">
+<nav class="flex gap-6 font-serif text-sm tracking-wide uppercase">
+<a class="text-[#1A2E1A] dark:text-white border-b-2 border-[#BF5700] pb-1" href="#">Overview</a>
+<a class="text-[#1A2E1A]/50 dark:text-stone-500 hover:text-[#BF5700] transition-colors duration-200" href="#">Live Feed</a>
+<a class="text-[#1A2E1A]/50 dark:text-stone-500 hover:text-[#BF5700] transition-colors duration-200" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4 border-r border-[#1A2E1A]/15 pr-6">
+<button class="text-[#1A2E1A]/60 hover:text-[#BF5700] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-[#1A2E1A]/60 hover:text-[#BF5700] transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+<button class="font-label-caps text-label-caps text-[#1A2E1A] hover:text-[#BF5700] uppercase tracking-widest border border-[#1A2E1A]/20 px-4 py-2 rounded-lg transition-colors">
+                Export Data
+            </button>
+<button class="font-ui-button text-ui-button bg-error text-on-error px-6 py-2 rounded-lg uppercase tracking-wider hover:bg-opacity-90 transition-colors">
+                Emergency Protocol
+            </button>
+<img alt="Director Profile" class="w-10 h-10 rounded-full border border-outline/20 object-cover" data-alt="professional headshot of an executive operations director in a suit against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdEXq2fqz3dxL5TgQwZxZy-mv4K0ujWo3s6rjUFy3smuIjCcZSWBIQfCEQjSvgB6ju-0WXqwdJ5nPdiIge5hKwK4SoQOvSEQCCElE8xwxbYrjDwWWO97LWA1gYb-ohvPK-ObF1FyupYfHTsYqYaqPEsntn62qtTVIfsUmyTvw_7x6uAdu0bLda8-94P62GcYgix0hphudNLLIUtEZe_1qc_i9OBfg-JpAtAsRIaNdpjbZ4zc64lW-IcpE-p2C7nptQBk0z-mHgbw"/>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 mt-24 p-16 max-w-container-max mx-auto">
+<div class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Staff Deployment</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Live overview of active personnel across all venue sectors.</p>
+</div>
+<div class="flex gap-4">
+<span class="bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps px-4 py-2 rounded-full uppercase flex items-center gap-2 border border-primary-fixed-dim">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    System Online
+                </span>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Personnel List (8 cols) -->
+<div class="col-span-8 flex flex-col gap-6">
+<!-- Filters -->
+<div class="flex gap-4 border-b border-outline/15 pb-4">
+<button class="font-label-caps text-label-caps uppercase text-secondary border-b-2 border-secondary pb-1">All Staff</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-secondary transition-colors pb-1">Security</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-secondary transition-colors pb-1">Janitorial</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-secondary transition-colors pb-1">Guest Services</button>
+</div>
+<!-- List Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline/15 p-8 flex flex-col gap-2 shadow-sm">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-4 pb-4 border-b border-outline/10 font-label-caps text-label-caps text-on-surface-variant uppercase">
+<div class="col-span-4">Personnel</div>
+<div class="col-span-3">Role</div>
+<div class="col-span-3">Location</div>
+<div class="col-span-2 text-right">Status</div>
+</div>
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-4 py-4 items-center border-b border-outline/5 hover:bg-surface-container-low/50 transition-colors cursor-pointer">
+<div class="col-span-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">JD</div>
+<div>
+<p class="font-ui-button text-ui-button text-primary">James Donovan</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant text-[10px]">ID: 4429</p>
+</div>
+</div>
+<div class="col-span-3">
+<span class="bg-surface-container text-on-surface font-label-caps text-label-caps px-3 py-1 rounded-md uppercase border border-outline/10">Security</span>
+</div>
+<div class="col-span-3 font-body-md text-body-md text-on-surface">
+                            Sector A - Gate 4
+                        </div>
+<div class="col-span-2 text-right">
+<span class="text-primary font-label-caps text-label-caps uppercase flex items-center justify-end gap-1"><span class="material-symbols-outlined text-[16px]">check_circle</span> Active</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-4 py-4 items-center border-b border-outline/5 hover:bg-surface-container-low/50 transition-colors cursor-pointer">
+<div class="col-span-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">SM</div>
+<div>
+<p class="font-ui-button text-ui-button text-primary">Sarah Miller</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant text-[10px]">ID: 3190</p>
+</div>
+</div>
+<div class="col-span-3">
+<span class="bg-surface-container text-on-surface font-label-caps text-label-caps px-3 py-1 rounded-md uppercase border border-outline/10">Guest Services</span>
+</div>
+<div class="col-span-3 font-body-md text-body-md text-on-surface">
+                            VIP Lounge West
+                        </div>
+<div class="col-span-2 text-right">
+<span class="text-primary font-label-caps text-label-caps uppercase flex items-center justify-end gap-1"><span class="material-symbols-outlined text-[16px]">check_circle</span> Active</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-4 py-4 items-center border-b border-outline/5 hover:bg-surface-container-low/50 transition-colors cursor-pointer">
+<div class="col-span-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">RT</div>
+<div>
+<p class="font-ui-button text-ui-button text-primary">Robert Torres</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant text-[10px]">ID: 8812</p>
+</div>
+</div>
+<div class="col-span-3">
+<span class="bg-surface-container text-on-surface font-label-caps text-label-caps px-3 py-1 rounded-md uppercase border border-outline/10">Janitorial</span>
+</div>
+<div class="col-span-3 font-body-md text-body-md text-on-surface">
+                            Concourse C - Restrooms
+                        </div>
+<div class="col-span-2 text-right">
+<span class="text-secondary font-label-caps text-label-caps uppercase flex items-center justify-end gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> Break</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Map & Insights (4 cols) -->
+<div class="col-span-4 flex flex-col gap-6">
+<!-- Density Map Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline/15 p-6 shadow-sm flex flex-col h-full">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary text-2xl">Sector Density</h3>
+<span class="material-symbols-outlined text-outline">map</span>
+</div>
+<div class="flex-1 min-h-[300px] rounded-lg border border-outline/10 overflow-hidden relative bg-surface-container-low">
+<img alt="Stadium Blueprint" class="w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="minimalist architectural blueprint of a large sports stadium viewed from above, stylized with clean lines and warm ivory tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbPOMqrIziBdWNhDCgVZdOJA_0TvGv4sHBYy-xJKD-smbopZzp2ptXrSzH11DF6RaaNk3dD0OYFUd9u0f01SeHPxkTHC_Uhk6dWrlDzGsAnFvKwB6ex7ITTlI7BMpvIHEeygrlwEq-l3m5_s3alo27RFUzHq9b5GmIpeuxegE5TbqYu_0Shft1cQreKwPk-esvwLc8EoPu0U2SgokHiJlTUnkumpZDS4yroAuNMYAEM265-hxyDX4IPl0EtsiLNFTUgOJFfmhHaQ"/>
+<!-- Overlay Markers (Simulated) -->
+<div class="absolute top-1/4 left-1/3 w-4 h-4 rounded-full bg-secondary bg-opacity-80 border-2 border-white animate-pulse"></div>
+<div class="absolute top-1/2 left-2/3 w-6 h-6 rounded-full bg-secondary bg-opacity-60 border-2 border-white"></div>
+<div class="absolute bottom-1/3 left-1/4 w-3 h-3 rounded-full bg-primary bg-opacity-80 border border-white"></div>
+</div>
+<div class="mt-6 flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-outline/10 pb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Total Active Staff</span>
+<span class="font-headline-md text-headline-md text-primary text-2xl">142</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">High Density Zone</span>
+<span class="font-label-caps text-label-caps uppercase text-secondary bg-secondary-fixed text-on-secondary-fixed px-2 py-1 rounded">Sector A</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StadiumIQ - Attendee View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f2f1ed",
+                    "on-primary-container": "#7f977c",
+                    "on-primary-fixed": "#0c200d",
+                    "on-tertiary-container": "#7591c5",
+                    "primary-fixed": "#d0e9cb",
+                    "on-secondary-fixed": "#311300",
+                    "outline": "#747871",
+                    "on-secondary-container": "#6b3100",
+                    "on-primary": "#ffffff",
+                    "background": "#fbf9f5",
+                    "surface-container": "#efeeea",
+                    "on-surface-variant": "#434841",
+                    "on-surface": "#1b1c1a",
+                    "primary-container": "#1a2e1a",
+                    "tertiary-fixed": "#d6e3ff",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#fe9246",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#001b3e",
+                    "primary-fixed-dim": "#b5cdb0",
+                    "inverse-surface": "#30312e",
+                    "secondary-fixed": "#ffdbc8",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#061907",
+                    "surface-container-highest": "#e3e2df",
+                    "surface-container-high": "#e9e8e4",
+                    "secondary-fixed-dim": "#ffb689",
+                    "on-tertiary-fixed-variant": "#294776",
+                    "inverse-primary": "#b5cdb0",
+                    "outline-variant": "#c3c8bf",
+                    "surface-container-low": "#f5f3f0",
+                    "tertiary-container": "#022956",
+                    "surface-bright": "#fbf9f5",
+                    "surface-dim": "#dbdad6",
+                    "on-background": "#1b1c1a",
+                    "on-primary-fixed-variant": "#374c36",
+                    "on-secondary-fixed-variant": "#733500",
+                    "surface": "#fbf9f5",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#001532",
+                    "secondary": "#984800",
+                    "surface-tint": "#4e644c",
+                    "tertiary-fixed-dim": "#aac7fe",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e3e2df"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-max": "1440px",
+                    "gutter": "32px",
+                    "margin": "64px",
+                    "asymmetric-split": "66%"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "notoSerif"
+                    ],
+                    "display-xl": [
+                            "notoSerif"
+                    ],
+                    "body-md": [
+                            "manrope"
+                    ],
+                    "headline-md": [
+                            "notoSerif"
+                    ],
+                    "label-caps": [
+                            "manrope"
+                    ],
+                    "ui-button": [
+                            "manrope"
+                    ],
+                    "body-lg": [
+                            "manrope"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-xl": [
+                            "64px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "ui-button": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex justify-center bg-stone-200">
+<!-- Mobile Device Container for Desktop View -->
+<main class="w-full max-w-[414px] bg-background min-h-screen relative shadow-2xl overflow-hidden flex flex-col pb-24">
+<!-- Header Section -->
+<header class="px-6 pt-12 pb-8">
+<h1 class="font-headline-lg text-headline-lg text-primary">Welcome to the Arena</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Section 114, Row G, Seat 12</p>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 px-6 flex flex-col gap-unit-3">
+<!-- Primary Card: Wayfinding -->
+<section class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6 relative overflow-hidden group hover:border-primary/20 transition-colors">
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<span class="font-label-caps text-label-caps text-tertiary-container uppercase tracking-wider bg-tertiary-container/10 px-2 py-1 rounded">System Navigation</span>
+<h2 class="font-headline-md text-headline-md text-primary mt-3">Best Route to Your Seat</h2>
+</div>
+<span class="material-symbols-outlined text-primary bg-primary/5 p-2 rounded-full">directions_walk</span>
+</div>
+<!-- Abstract Vector Map Area -->
+<div class="h-32 bg-surface-container-low rounded-lg border border-primary/5 relative mb-6 overflow-hidden flex items-center justify-center">
+<svg class="w-full h-full stroke-tertiary-container stroke-2 fill-none opacity-80" preserveaspectratio="none" viewbox="0 0 100 50">
+<path d="M 10 25 Q 25 10, 50 25 T 90 25" stroke-dasharray="4"></path>
+<circle class="fill-primary stroke-none" cx="10" cy="25" r="3"></circle>
+<circle class="fill-secondary stroke-none" cx="90" cy="25" r="3"></circle>
+</svg>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-50"></div>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-ui-button text-ui-button py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-secondary/90 transition-colors">
+                    Get Directions
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</section>
+<!-- Secondary Card: Dining -->
+<section class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6 hover:border-primary/20 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Dining Nearby</span>
+<h3 class="font-headline-md text-[24px] font-medium text-primary mt-2 leading-tight">Nearest Open Food Stall</h3>
+</div>
+<span class="material-symbols-outlined text-primary bg-primary/5 p-2 rounded-full">restaurant</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-16 h-16 rounded-lg bg-surface-container-low border border-primary/5 overflow-hidden">
+<img alt="Gourmet Burger" class="w-full h-full object-cover" data-alt="close up of a gourmet stadium burger on a wooden board with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABGpQJBSnM2coIpxN1bOi8mH6kt9qpA6lGunq0Q35vpvSjsCBe6MFQct2_83Fi4-KZFljEIAag-Qs6nIvDyecFbGwv95PS97uxiyDm3duU6gA4h99PxdkhPrYfz8cGHGv0qAZKggSaxb9pzeJb3ZnlKqBCmqMxZsd-u-S91va5l-P52Hws0oixE-Px1vu9k5RotktKTvvnsZ_w6kg-dNUVi2gE9GkajbOwKT8T6ZKPgWHrILtmnToDoBVYieFsVICcYfiX7SVLRw"/>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-primary">The Grill House</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-tertiary text-on-tertiary font-label-caps text-label-caps px-2 py-1 rounded-full text-[10px]">4 MINS WAIT</span>
+<span class="text-on-surface-variant text-sm flex items-center"><span class="material-symbols-outlined text-[14px] mr-1">location_on</span> Sec 112</span>
+</div>
+</div>
+</div>
+<button class="w-full border border-primary text-primary font-ui-button text-ui-button py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary/5 transition-colors uppercase tracking-wider">
+                    Order Now
+                </button>
+</section>
+<!-- Secondary Card: Upgrade/Offers -->
+<section class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6 flex items-center gap-4 hover:border-primary/20 transition-colors">
+<div class="bg-secondary/10 p-3 rounded-lg border border-secondary/20 text-secondary">
+<span class="material-symbols-outlined">stars</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">VIP Lounge Upgrade</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Access exclusive bars.</p>
+</div>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</section>
+</div>
+<!-- Bottom Navigation Shell (from JSON) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-3xl bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-t border-[#1A2E1A]/5 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] absolute max-w-[414px]">
+<div class="flex justify-around items-center px-6 pt-4 pb-8">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center text-[#1A2E1A] dark:text-amber-500 font-bold active:scale-95 tap-highlight-transparent group">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stadium</span>
+<span class="font-sans text-[10px] uppercase tracking-tighter mt-1">Home</span>
+</button>
+<!-- Wayfinding -->
+<button class="flex flex-col items-center justify-center text-stone-400 active:scale-95 tap-highlight-transparent group hover:text-stone-600 transition-colors">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">explore</span>
+<span class="font-sans text-[10px] uppercase tracking-tighter mt-1">Wayfinding</span>
+</button>
+<!-- Dining -->
+<button class="flex flex-col items-center justify-center text-stone-400 active:scale-95 tap-highlight-transparent group hover:text-stone-600 transition-colors">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">restaurant</span>
+<span class="font-sans text-[10px] uppercase tracking-tighter mt-1">Dining</span>
+</button>
+<!-- Notifications -->
+<button class="flex flex-col items-center justify-center text-stone-400 active:scale-95 tap-highlight-transparent group hover:text-stone-600 transition-colors relative">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">notifications_active</span>
+<span class="absolute top-0 right-1 w-2 h-2 bg-secondary rounded-full"></span>
+<span class="font-sans text-[10px] uppercase tracking-tighter mt-1">Notifications</span>
+</button>
+</div>
+</nav>
+</main>
+</body></html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StadiumIQ Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f2f1ed",
+                        "on-primary-container": "#7f977c",
+                        "on-primary-fixed": "#0c200d",
+                        "on-tertiary-container": "#7591c5",
+                        "primary-fixed": "#d0e9cb",
+                        "on-secondary-fixed": "#311300",
+                        "outline": "#747871",
+                        "on-secondary-container": "#6b3100",
+                        "on-primary": "#ffffff",
+                        "background": "#fbf9f5",
+                        "surface-container": "#efeeea",
+                        "on-surface-variant": "#434841",
+                        "on-surface": "#1b1c1a",
+                        "primary-container": "#1a2e1a",
+                        "tertiary-fixed": "#d6e3ff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#fe9246",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#001b3e",
+                        "primary-fixed-dim": "#b5cdb0",
+                        "inverse-surface": "#30312e",
+                        "secondary-fixed": "#ffdbc8",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#061907",
+                        "surface-container-highest": "#e3e2df",
+                        "surface-container-high": "#e9e8e4",
+                        "secondary-fixed-dim": "#ffb689",
+                        "on-tertiary-fixed-variant": "#294776",
+                        "inverse-primary": "#b5cdb0",
+                        "outline-variant": "#c3c8bf",
+                        "surface-container-low": "#f5f3f0",
+                        "tertiary-container": "#022956",
+                        "surface-bright": "#fbf9f5",
+                        "surface-dim": "#dbdad6",
+                        "on-background": "#1b1c1a",
+                        "on-primary-fixed-variant": "#374c36",
+                        "on-secondary-fixed-variant": "#733500",
+                        "surface": "#fbf9f5",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#001532",
+                        "secondary": "#984800",
+                        "surface-tint": "#4e644c",
+                        "tertiary-fixed-dim": "#aac7fe",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e3e2df"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1440px",
+                        "gutter": "32px",
+                        "margin": "64px",
+                        "asymmetric-split": "66%"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display", "serif"],
+                        "display-xl": ["Playfair Display", "serif"],
+                        "body-md": ["DM Sans", "sans-serif"],
+                        "headline-md": ["Playfair Display", "serif"],
+                        "label-caps": ["DM Sans", "sans-serif"],
+                        "ui-button": ["DM Sans", "sans-serif"],
+                        "body-lg": ["DM Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "ui-button": ["14px", {"lineHeight": "1.0", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md text-body-md">
+<!-- SideNavBar (from JSON) -->
+<nav class="bg-[#F5F0E8] dark:bg-stone-950 text-[#1A2E1A] dark:text-stone-200 font-sans uppercase text-xs tracking-widest font-semibold docked h-screen left-0 border-r border-r border-[#1A2E1A]/10 flat no shadows flex flex-col w-64 h-full p-8 hidden md:flex shrink-0">
+<div class="mb-12 flex flex-col items-center">
+<img alt="Stadium Admin" class="w-16 h-16 rounded-full mb-4 object-cover" data-alt="Professional headshot of a stadium operational lead in corporate attire against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCabc4nfYiIu_xVEZbmqkZggpnoj3msJ7mcMyYkiAsVjah1So2_derCDOSsVJhnj6Y7_fqHVddorblrgWqEfJfKho0oMdbFKfpZ9GMXKxM5XiaFyTly2zQLiSMoSB19zszs3AtuWrhDxjln6yHmD4V5wRE6RIh537NXE5_RerbJpcUo1aVrrp5hUx6W9ctXPzn8sAlBEGmcriqb5o3T1PUTEDZsPApJ4R83oR_Nwdz3LIZqqci1896ih5BHs_JsbPXhMKSDwDDFpw"/>
+<div class="text-center">
+<div class="font-bold text-sm tracking-wider">Arena Alpha</div>
+<div class="text-[10px] text-stone-500 mt-1">Operational Lead</div>
+</div>
+</div>
+<ul class="flex flex-col gap-6 flex-grow">
+<li>
+<a class="text-[#1A2E1A] dark:text-white font-bold bg-white/50 dark:bg-stone-800/50 hover:translate-x-1 transition-transform ease-out duration-200 flex items-center gap-4 px-4 py-3 rounded-lg w-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Operations
+                </a>
+</li>
+<li>
+<a class="text-stone-400 hover:text-[#1A2E1A] dark:hover:text-stone-200 hover:translate-x-1 transition-transform ease-out duration-200 flex items-center gap-4 px-4 py-3 w-full" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                    Heatmaps
+                </a>
+</li>
+<li>
+<a class="text-stone-400 hover:text-[#1A2E1A] dark:hover:text-stone-200 hover:translate-x-1 transition-transform ease-out duration-200 flex items-center gap-4 px-4 py-3 w-full" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+                    Personnel
+                </a>
+</li>
+<li>
+<a class="text-stone-400 hover:text-[#1A2E1A] dark:hover:text-stone-200 hover:translate-x-1 transition-transform ease-out duration-200 flex items-center gap-4 px-4 py-3 w-full" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    Intelligence
+                </a>
+</li>
+<li>
+<a class="text-stone-400 hover:text-[#1A2E1A] dark:hover:text-stone-200 hover:translate-x-1 transition-transform ease-out duration-200 flex items-center gap-4 px-4 py-3 w-full" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                    Archive
+                </a>
+</li>
+</ul>
+<div class="mt-auto pt-8 border-t border-[#1A2E1A]/10">
+<button class="w-full mb-6 bg-secondary text-on-secondary px-4 py-3 rounded-lg text-[10px] uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+                System Alert
+            </button>
+<ul class="flex flex-col gap-4">
+<li>
+<a class="text-stone-400 hover:text-[#1A2E1A] dark:hover:text-stone-200 transition-colors flex items-center gap-4 px-4 py-2" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+                        Support
+                    </a>
+</li>
+<li>
+<a class="text-stone-400 hover:text-[#1A2E1A] dark:hover:text-stone-200 transition-colors flex items-center gap-4 px-4 py-2" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="logout">logout</span>
+                        Logout
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col w-full h-screen overflow-hidden">
+<!-- TopAppBar (from JSON) -->
+<header class="bg-[#F5F0E8] dark:bg-stone-950 text-[#1A2E1A] dark:text-stone-200 font-serif italic tracking-tight docked full-width top-0 border-b border-[#1A2E1A]/10 flat no shadows transition-all duration-300 ease-in-out flex justify-between items-center px-12 py-6 w-full z-10 shrink-0">
+<div class="flex items-center gap-8">
+<div class="text-xl font-bold uppercase tracking-widest text-[#1A2E1A] dark:text-stone-100 not-italic">
+                    StadiumIQ
+                </div>
+<nav class="hidden md:flex gap-6 not-italic font-sans text-sm font-semibold tracking-wider uppercase">
+<a class="text-[#1A2E1A] border-b-2 border-[#1A2E1A] pb-1 hover:bg-stone-200/50 dark:hover:bg-stone-800 px-2" href="#">Dashboard</a>
+<a class="text-stone-500 hover:text-[#1A2E1A] hover:bg-stone-200/50 dark:hover:bg-stone-800 px-2 pb-1" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<!-- Metrics inserted into header area as requested -->
+<div class="hidden lg:flex gap-4 not-italic font-sans mr-8">
+<div class="flex flex-col items-end">
+<span class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Active Zones</span>
+<span class="text-xl font-bold text-primary">14/18</span>
+</div>
+<div class="w-px bg-[#1A2E1A]/10 mx-2"></div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Avg Wait</span>
+<span class="text-xl font-bold text-primary">4.2m</span>
+</div>
+<div class="w-px bg-[#1A2E1A]/10 mx-2"></div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] uppercase tracking-widest text-secondary font-bold">Alerts</span>
+<span class="text-xl font-bold text-secondary">3</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Director Profile" class="w-10 h-10 rounded-full object-cover border border-[#1A2E1A]/20" data-alt="Small circular profile picture of a director" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFGHh21kppqJRArx06HCVPPUZB0jmrO2TpQAXQgp9AGUDHdcFYSA2QpaaKlqQkSGSwZREbPPQX9OA40scLsr2OgvsNGrnXv4LZu_vsoWXOMA661jOJjZWdFRssD6ulEzE7fhZ_CNqZg6Q10Dl_OUyZMVccW3Ye4lnl_24DadZrT5XKncgK3Q0_Du5AqjaqKLRy-gVqEh6V6FYg-TnvIgvZL5JuT_lVI0AYYOzQDXLRuU1dGNhetG9pXg4Jk6W1E4oGaU6OfMHKfQ"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="flex-1 overflow-y-auto p-gutter lg:p-margin bg-background">
+<div class="mb-12">
+<h1 class="font-display-xl text-display-xl text-primary mb-2">Operational Intelligence</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Real-time venue monitoring and personnel deployment.</p>
+</div>
+<!-- Asymmetric Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Heatmap (60% approx -> 7 columns) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6 flex flex-col h-[600px]">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-primary">Concourse Heatmap</h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container text-primary font-label-caps text-label-caps rounded-full border border-primary/10">Level 1</span>
+<span class="px-3 py-1 bg-transparent text-on-surface-variant font-label-caps text-label-caps rounded-full border border-transparent">Level 2</span>
+</div>
+</div>
+<div class="flex-1 relative rounded-lg bg-surface-container-low border border-primary/5 overflow-hidden flex items-center justify-center group">
+<!-- Placeholder for architectural heatmap -->
+<img alt="Stadium Heatmap" class="w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="High fidelity architectural blueprint style heatmap of a stadium concourse with glowing thermal data points indicating crowd density" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAylQRi7WBH7LFuIwovOzjlmej3vlG0WQ3hn0FEb_1E16W9U6AARP42abTdUmzJLbNCneqH6z5Vvhyh3AenmLo8qIw-PIPWBhbExxzNndgDBwRNHFoMk-PBtEXCTazaxu4OTDqVAAvxv9daCBXs7doGiWCMvkcUhCewMb-ijvoKirv4U_lINEDgn-WrymRGXzuYtewJvf8vdBSY8uK27SEyX1l2rRnagGsjptSdriEZdjJkUD8KzTA5N6Na4KHLvJRnCJRXxbwntA"/>
+<!-- Overlay UI elements for architectural feel -->
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">High Density</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary-container"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Moderate</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Clear</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Additional Data Cards below heatmap -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">Gate Ingress Rate</h3>
+<div class="flex items-end gap-4">
+<span class="font-headline-lg text-headline-lg text-primary">4,250</span>
+<span class="text-sm text-secondary-container mb-2 flex items-center"><span class="material-symbols-outlined text-sm">trending_up</span> +12%</span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full w-[75%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">Concession Load</h3>
+<div class="flex items-end gap-4">
+<span class="font-headline-lg text-headline-lg text-primary">82%</span>
+<span class="text-sm text-primary-fixed-dim mb-2 flex items-center"><span class="material-symbols-outlined text-sm">trending_down</span> -3%</span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full w-[82%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Agent Activity Feed (40% approx -> 5 columns) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl border border-primary/10 p-6 flex flex-col h-[600px]">
+<div class="flex justify-between items-center mb-8 border-b border-primary/10 pb-4">
+<h2 class="font-headline-md text-headline-md text-primary">Agent Activity</h2>
+<button class="font-ui-button text-ui-button text-secondary uppercase tracking-widest border-b border-transparent hover:border-secondary transition-colors">Filter</button>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 flex flex-col gap-6">
+<!-- Feed Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-2 before:w-px before:h-full before:bg-primary/10 pb-2">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-secondary"></div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-caps text-[10px] text-secondary">Alert Resolved</span>
+<span class="text-[10px] text-on-surface-variant font-mono">14:02:18</span>
+</div>
+<h4 class="font-bold text-sm text-primary mb-1">Spill at Sector 4G</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Janitorial team Alpha dispatched and confirmed cleanup. Zone cleared for standard flow.</p>
+</div>
+<!-- Feed Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-2 before:w-px before:h-full before:bg-primary/10 pb-2">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-tertiary-container"></div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-caps text-[10px] text-tertiary-container">System Notice</span>
+<span class="text-[10px] text-on-surface-variant font-mono">13:45:00</span>
+</div>
+<h4 class="font-bold text-sm text-primary mb-1">Gate C Congestion</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Wait times exceeding 8 minutes. Security personnel rerouted from Gate B to assist.</p>
+</div>
+<!-- Feed Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-2 before:w-px before:h-full before:bg-primary/10 pb-2">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-primary-container"></div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-caps text-[10px] text-primary-container">Routine Log</span>
+<span class="text-[10px] text-on-surface-variant font-mono">13:15:22</span>
+</div>
+<h4 class="font-bold text-sm text-primary mb-1">VIP Escort Complete</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Guest services agent 42 completed escort to Suite 210 without incident.</p>
+</div>
+<!-- Feed Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-2 before:w-px before:h-full before:bg-primary/10 pb-2">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-primary-container"></div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-caps text-[10px] text-primary-container">Routine Log</span>
+<span class="text-[10px] text-on-surface-variant font-mono">12:30:00</span>
+</div>
+<h4 class="font-bold text-sm text-primary mb-1">Pre-game Sweep</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">All concourse sweeps completed. Readiness level at 100%.</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/10">
+<button class="w-full bg-surface text-primary border border-primary/20 font-ui-button text-ui-button py-3 rounded-lg hover:bg-surface-container-low transition-colors">View Full Log</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (from JSON) - Only visible on mobile -->
+<nav class="md:hidden bg-white/80 dark:bg-stone-900/80 backdrop-blur-md text-[#1A2E1A] dark:text-amber-500 font-sans text-[10px] uppercase tracking-tighter fixed bottom-0 w-full z-50 rounded-t-3xl border-t border-[#1A2E1A]/5 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] tap-highlight-transparent fixed bottom-0 left-0 w-full flex justify-around items-center px-6 pt-4 pb-8">
+<a class="flex flex-col items-center justify-center text-[#1A2E1A] dark:text-amber-500 font-bold active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="stadium">stadium</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center text-stone-400 active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+            Wayfinding
+        </a>
+<a class="flex flex-col items-center justify-center text-stone-400 active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="restaurant">restaurant</span>
+            Dining
+        </a>
+<a class="flex flex-col items-center justify-center text-stone-400 active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="notifications_active">notifications_active</span>
+            Notifications
+        </a>
+</nav>
+</body></html>
