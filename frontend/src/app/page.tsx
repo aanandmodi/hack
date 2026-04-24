@@ -32,7 +32,8 @@ export default function OperationsDashboard() {
 
   const setPhase = async (phase: string) => {
     try {
-      await fetch("http://localhost:8000/api/simulation/phase", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      await fetch(`${apiBase}/api/simulation/phase`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phase }),

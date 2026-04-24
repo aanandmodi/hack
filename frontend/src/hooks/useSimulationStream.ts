@@ -35,8 +35,11 @@ export function useSimulationStream() {
     let ws: WebSocket;
     
     const connect = () => {
-      // Connect to the FastAPI WebSocket endpoint
-      ws = new WebSocket("ws://localhost:8000/api/ws/simulation");
+      // Determine WebSocket URL dynamically
+      const wsBase = process.env.NEXT_PUBLIC_API_URL
+        ? process.env.NEXT_PUBLIC_API_URL.replace(/^http/, "ws")
+        : "ws://localhost:8000";
+      ws = new WebSocket(`${wsBase}/api/ws/simulation`);
       
       ws.onopen = () => {
         console.log("Connected to simulation stream");
