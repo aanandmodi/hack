@@ -4,12 +4,14 @@ FastAPI application entry point with CORS, routing, and health check.
 """
 
 import logging
+import asyncio
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.routes import router
+from api.simulation import router as simulation_router, simulation_loop
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,7 +25,13 @@ async def lifespan(app: FastAPI):
     """Application lifespan — startup and shutdown events."""
     logger.info("🏟️  StadiumIQ agent system is LIVE")
     logger.info("📡  Waiting for connections on port 8000...")
+    
+    # Start the real-time simulation engine
+    task = asyncio.create_task(simulation_loop())
+    
     yield
+    
+    task.cancel()
     logger.info("🛑  StadiumIQ shutting down")
 
 
@@ -43,6 +51,7 @@ app.add_middleware(
 )
 
 app.include_router(router, prefix="/api")
+app.include_router(simulation_router, prefix="/api")
 
 
 @app.get("/health")

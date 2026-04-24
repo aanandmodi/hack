@@ -3,12 +3,13 @@
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
 import { StadiumMap } from "@/components/stadium/StadiumMap";
-import { generateZones, generateGates, generateLiveStats, generateAlerts, type ZoneData } from "@/lib/simulation";
+import { generateZones, generateLiveStats, generateAlerts, type ZoneData } from "@/lib/simulation";
+import { useSimulationStream } from "@/hooks/useSimulationStream";
 import { useState, useEffect, useCallback } from "react";
 
 export default function OperationsDashboard() {
+  const { data: streamData, isConnected } = useSimulationStream();
   const [zones, setZones] = useState<ZoneData[]>([]);
-  const [gates, setGates] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
   const [alerts, setAlerts] = useState<any[]>([]);
   const [selectedZone, setSelectedZone] = useState<ZoneData | null>(null);
@@ -18,29 +19,39 @@ export default function OperationsDashboard() {
   // Initialize + real-time polling every 3 seconds
   useEffect(() => {
     setZones(generateZones());
-    setGates(generateGates());
     setStats(generateLiveStats());
     setAlerts(generateAlerts());
     setMounted(true);
     const interval = setInterval(() => {
       setZones(generateZones());
-      setGates(generateGates());
       setStats(generateLiveStats());
       setAlerts(generateAlerts());
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
+  const setPhase = async (phase: string) => {
+    try {
+      await fetch("http://localhost:8000/api/simulation/phase", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phase }),
+      });
+    } catch (err) {
+      console.error("Failed to change phase:", err);
+    }
+  };
+
   const filteredZones = zones.filter((z) => z.level === level || z.type === "gate");
   const activeAlerts = alerts.filter((a) => !a.resolved);
 
-  if (!mounted || !stats) return (
+  if (!mounted || !stats || !streamData) return (
     <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 ml-64 flex items-center justify-center bg-[#fbf9f5]">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#c3c8bf] border-t-[#984800] rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-label-caps text-[#434841]">Initializing Live Feed...</p>
+          <p className="text-label-caps text-[#434841]">Connecting to Simulation Engine...</p>
         </div>
       </main>
     </div>
@@ -56,14 +67,26 @@ export default function OperationsDashboard() {
           <div className="mb-10 flex justify-between items-start">
             <div>
               <h1 className="text-display-xl text-[#061907] mb-2">Operational Intelligence</h1>
+              <div className="flex gap-2 mb-2">
+                <span className="text-xs font-bold text-[#434841] my-auto">Phase Override:</span>
+                {["Ingress", "Steady State", "Intermission", "Egress"].map((phase) => (
+                  <button
+                    key={phase}
+                    onClick={() => setPhase(phase)}
+                    className={`px-2 py-1 text-[10px] rounded border ${streamData.phase === phase ? "bg-[#1a2e1a] text-white" : "bg-white text-black hover:bg-gray-100"}`}
+                  >
+                    {phase}
+                  </button>
+                ))}
+              </div>
               <p className="text-body-lg text-[#434841] max-w-2xl">
-                Real-time venue monitoring — {stats.gamePhase.replace("-", " ").toUpperCase()} phase ({stats.gameProgress}% through)
+                Real-time venue monitoring — {streamData.phase.toUpperCase()} phase ({stats.gameProgress}% through)
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
               <span className="text-label-caps text-[#434841]">
-                Live — {new Date(stats.timestamp).toLocaleTimeString()}
+                {isConnected ? `Live Feed Active` : "Disconnected"}
               </span>
             </div>
           </div>
@@ -95,7 +118,16 @@ export default function OperationsDashboard() {
                 <div className="h-[480px] rounded-lg border border-[#061907]/5 overflow-hidden relative">
                   <StadiumMap
                     zones={filteredZones}
-                    gates={gates}
+                    gates={streamData.gates.map((g: any) => ({
+                      id: g.id,
+                      name: g.name,
+                      throughputPerMin: g.throughput,
+                      queueLength: g.queue_length,
+                      waitMinutes: g.wait_time_minutes,
+                      isOpen: true,
+                      x: g.name.includes("A") ? 94 : g.name.includes("B") ? 81 : g.name.includes("C") ? 50 : 19,
+                      y: g.name.includes("A") ? 50 : g.name.includes("B") ? 81 : g.name.includes("C") ? 94 : 81,
+                    }))}
                     selectedZone={selectedZone?.id}
                     onZoneClick={setSelectedZone}
                     showLabels
@@ -132,7 +164,7 @@ export default function OperationsDashboard() {
                   <h3 className="text-label-caps text-[#434841] mb-3">Gate Ingress Rate</h3>
                   <div className="flex items-end gap-3">
                     <span className="text-headline-lg text-[#061907]">
-                      {stats.totalIngress.toLocaleString()}
+                      {streamData.gates.reduce((acc: number, g: any) => acc + g.throughput, 0).toLocaleString()}
                     </span>
                     <span className={`text-sm mb-2 flex items-center ${stats.ingressDelta >= 0 ? "text-[#fe9246]" : "text-[#7591c5]"}`}>
                       <span className="material-symbols-outlined text-sm">
@@ -141,7 +173,7 @@ export default function OperationsDashboard() {
                       {stats.ingressDelta >= 0 ? "+" : ""}{stats.ingressDelta}%
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#434841] mt-1">per/min across {gates.filter(g => g.isOpen).length} open gates</p>
+                  <p className="text-[11px] text-[#434841] mt-1">per/min across 4 open gates</p>
                   <div className="w-full bg-[#efeeea] h-1 mt-3 rounded-full overflow-hidden">
                     <div className="bg-[#fe9246] h-full transition-all duration-1000" style={{ width: `${Math.min(stats.totalIngress / 80, 100)}%` }} />
                   </div>
